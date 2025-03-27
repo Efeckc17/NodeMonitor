@@ -1,0 +1,11 @@
+body.bg-technical {
+    background-color: #0f172a;
+    font-family: 'Roboto', sans-serif;
+  }
+  .text-cyan-400 {
+    color: #06b6d4;
+  }
+  .font-bold, .font-extrabold {
+    font-weight: 700;
+  }
+  

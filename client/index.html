@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NodeMonitor Dashboard</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+</head>
+<body class="bg-technical">
+  <header class="p-6 text-center">
+    <h1 class="text-4xl font-extrabold text-cyan-400">NodeMonitor Dashboard</h1>
+  </header>
+  <main class="container mx-auto px-4">
+    <section class="grid grid-cols-2 gap-6 mb-6">
+      <div class="bg-gray-800 p-4 rounded shadow">
+        <h2 class="text-xl font-bold mb-2 text-cyan-400">CPU</h2>
+        <p id="cpuModel" class="text-2xl font-bold">Loading CPU Model...</p>
+        <p id="cpuUsage" class="text-2xl font-bold">Usage: Loading...</p>
+        <p id="cpuTemp" class="text-2xl font-bold">Temp: Loading...</p>
+        <p id="cpuAvg" class="text-2xl font-bold">Avg Load: Loading...</p>
+      </div>
+      <div class="bg-gray-800 p-4 rounded shadow">
+        <h2 class="text-xl font-bold mb-2 text-cyan-400">RAM</h2>
+        <p id="ramUsage" class="text-2xl font-bold">Usage: Loading...</p>
+        <p id="ramDetail" class="text-xl font-bold">Detail: Loading...</p>
+      </div>
+      <div class="bg-gray-800 p-4 rounded shadow">
+        <h2 class="text-xl font-bold mb-2 text-cyan-400">Disk I/O</h2>
+        <p id="diskIO" class="text-2xl font-bold">Loading...</p>
+      </div>
+      <div class="bg-gray-800 p-4 rounded shadow">
+        <h2 class="text-xl font-bold mb-2 text-cyan-400">Network</h2>
+        <p id="network" class="text-2xl font-bold">Loading...</p>
+      </div>
+      <div class="bg-gray-800 p-4 rounded shadow col-span-2">
+        <h2 class="text-xl font-bold mb-2 text-cyan-400">Storage</h2>
+        <p id="storage" class="text-2xl font-bold">Loading...</p>
+      </div>
+    </section>
+    <section class="grid grid-cols-2 gap-6 mb-6">
+      <div class="bg-gray-800 p-4 rounded shadow">
+        <h2 class="text-xl font-bold mb-2 text-cyan-400">GPU & Fans</h2>
+        <p id="gpuTemp" class="text-2xl font-bold">GPU Temp: Loading...</p>
+        <p id="fanSpeeds" class="text-2xl font-bold">Fan Speeds: Loading...</p>
+      </div>
+      <div class="bg-gray-800 p-4 rounded shadow">
+        <h2 class="text-xl font-bold mb-2 text-cyan-400">System Info</h2>
+        <p id="uptime" class="text-2xl font-bold">Uptime: Loading...</p>
+        <p id="currentTime" class="text-2xl font-bold">Current Time: Loading...</p>
+        <p id="internalIP" class="text-2xl font-bold">Internal IP: Loading...</p>
+        <p id="externalIP" class="text-2xl font-bold">External IP: Loading...</p>
+      </div>
+    </section>
+    <section class="grid grid-cols-2 gap-6 mb-6">
+      <div class="bg-gray-800 p-4 rounded shadow">
+        <h2 class="text-xl font-bold mb-2 text-cyan-400">Open Ports</h2>
+        <div class="overflow-auto h-64">
+          <table class="min-w-full text-sm font-bold">
+            <thead>
+              <tr>
+                <th class="px-4 py-2">Protocol</th>
+                <th class="px-4 py-2">Port</th>
+                <th class="px-4 py-2">Local Address</th>
+              </tr>
+            </thead>
+            <tbody id="portsTable"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="bg-gray-800 p-4 rounded shadow">
+        <h2 class="text-xl font-bold mb-2 text-cyan-400">SSH Connections</h2>
+        <div class="overflow-auto h-64">
+          <table class="min-w-full text-sm font-bold">
+            <thead>
+              <tr>
+                <th class="px-4 py-2">User</th>
+                <th class="px-4 py-2">TTY</th>
+                <th class="px-4 py-2">Date</th>
+                <th class="px-4 py-2">Time</th>
+                <th class="px-4 py-2">Host</th>
+              </tr>
+            </thead>
+            <tbody id="sshTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <section class="bg-gray-800 p-4 rounded shadow mb-6">
+      <h2 class="text-xl font-bold mb-4 text-cyan-400">Processes</h2>
+      <div class="mb-4">
+        <label for="userFilter" class="mr-2 font-bold">Filter by User:</label>
+        <select id="userFilter" class="bg-gray-700 p-1 rounded">
+          <option value="all">All</option>
+          <option value="root">root</option>
+          <option value="user">user</option>
+        </select>
+      </div>
+      <div class="overflow-auto h-64">
+        <table class="min-w-full text-sm font-bold">
+          <thead>
+            <tr>
+              <th class="px-4 py-2">PID</th>
+              <th class="px-4 py-2">User</th>
+              <th class="px-4 py-2">CPU %</th>
+              <th class="px-4 py-2">MEM %</th>
+              <th class="px-4 py-2">Command</th>
+            </tr>
+          </thead>
+          <tbody id="processTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
